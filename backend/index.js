@@ -1,6 +1,6 @@
 
 const express = require("express");
-//const authRoutes = require("./routes/auth");
+const authRoutes = require("./routes/authentication");
 const cors = require("cors"); 
 require("dotenv").config();
 const db = require('./database/models/index');
@@ -10,7 +10,7 @@ const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
-//app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 db.sequelize.authenticate().then(() => {
   console.log('Connected to the database');
