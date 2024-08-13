@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
-import { TextField } from "@mui/material"
+import { FloatLabel } from 'primereact/floatlabel';
+import { InputText } from 'primereact/inputtext';
 
 type Props = {
     label : string,
@@ -10,11 +11,14 @@ type Props = {
 
 const Input = ({label, defaultValue, onChangeFunction, type} : Props) =>{
     return(
-        <TextField label={label} variant="filled" type={type}
-            value={defaultValue}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                onChangeFunction(event.target.value);
-        }}/>
+        <div className="card flex justify-content-center">
+            <FloatLabel>
+                <InputText id="username" value={defaultValue} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    onChangeFunction(event.target.value);
+            }} />
+                <label htmlFor="username">{label}</label>
+            </FloatLabel>
+        </div>
     )
 }
 

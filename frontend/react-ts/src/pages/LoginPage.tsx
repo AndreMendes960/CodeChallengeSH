@@ -23,7 +23,6 @@ const LoginPage = () =>{
 
     const {login} = useContext(AuthContext)
 
-
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
@@ -49,6 +48,8 @@ const LoginPage = () =>{
                     </div>
                 </form>
                 {error !== "" && <p style={{ color: 'red' }}>{error}</p>}
+
+                <p>No account? Create one <a href="/register">Here</a></p>
             </div>
         </Layout>
     )

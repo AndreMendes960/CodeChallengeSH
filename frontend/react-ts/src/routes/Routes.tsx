@@ -5,7 +5,7 @@ import AuthContext, { userDataType } from '../middleware/authContext';
 import { useContext } from 'react';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/registerPage/RegisterPage';
-import AdminPage from '../pages/AdminPage';
+import AdminPage from '../pages/adminPage/AdminPage';
 import HomePage from '../pages/HomePage';
 
 

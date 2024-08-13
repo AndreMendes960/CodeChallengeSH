@@ -1,0 +1,32 @@
+
+
+{
+  "development": {
+    "username": "avnadmin",
+    "password": "AVNS_KSdQAKcyHX31W6XGeaE",
+    "database": "defaultdb",
+    "host": "users-db-code-challenge-sh.l.aivencloud.com",
+    "dialect": "postgres",
+    "port": 17972,
+    "dialectOptions":{
+      "ssl":{
+        "require":true,
+        "rejectUnauthorized": false
+      }
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
