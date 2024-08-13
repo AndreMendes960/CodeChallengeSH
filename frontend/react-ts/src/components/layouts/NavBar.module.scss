@@ -1,0 +1,82 @@
+@import "../colors.scss";
+
+.navBar{
+    background-color: $NavBarColor;
+
+    padding-right: 3rem;
+    padding-left: 3rem;
+
+    display: grid;
+    grid-template-columns: auto max-content;
+    position: sticky;
+    align-items: center;
+
+    top: 0;
+    height: 35px;
+    z-index: 1;
+}
+
+.logoImg{
+   height: 30px;
+}
+
+.dropDownProfileWrapper{
+    padding: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.alignDiv{
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(min-content, 1fr) min-content;
+    width: 100%;
+    justify-content: flex-start;
+    margin-right: 0.2rem;
+}
+
+.iconLabelDiv{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+}
+
+.icon{
+    margin-right : 0.5rem;
+    margin-left: 0.2rem;
+    width: 15px;
+    height: 15px;
+}
+
+.optionLabel{
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 0.5rem;
+}
+
+.usernameLabel{
+    margin: 0;
+    font-size: 700;
+    font-weight: bold;
+}
+
+.userEmailLabel{
+    color : gray;
+    margin : 0;
+    margin-bottom: 0.5rem;
+    margin-left: calc(15px + 0.7rem);
+}
+
+.userDataDiv{
+    border-bottom : 1px solid rgb(226, 226, 226);
+    margin-bottom : 0.5rem
+}
+
+.actionsDiv{
+    display: flex;
+    flex-direction: row;
+}

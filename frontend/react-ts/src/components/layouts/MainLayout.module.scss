@@ -1,0 +1,7 @@
+@import "../colors.scss";
+.appBody{
+    height: calc(100% - 35px);
+    width: 100%;
+    background-color : $BackgroundColor;
+    overflow: auto;
+}

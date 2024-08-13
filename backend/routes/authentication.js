@@ -28,40 +28,45 @@ const LoginValidationRules = () => {
 
 
 router.post("/login", LoginValidationRules(), async (req, res) => {
-  try{
+    try{
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { email, password } = req.body;
+
+        const user = await db.User.findOne({
+            where: {
+            email: email,
+            },
+        });
+
+        if (!user) return res.status(400).send("Invalid username or password.");
+
+        const validPassword = await user.validPassword(password)
+        if (!validPassword)
+            return res.status(400).send("Invalid username or password.");
+
+        const admin = await db.Admin.findOne({
+            where:{
+                userId: user.id
+            }
+        })
+
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+
+        res.status(200).json({
+            token : token,
+            role : !admin ? "User" : "Admin",
+            username : user.username
+        });
+
+    } catch (error){
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
     }
-
-    const { email, password } = req.body;
-
-    console.log(email)
-
-    const user = await db.User.findOne({
-        where: {
-          email: email,
-        },
-    });
-
-
-    if (!user) return res.status(400).send("Invalid username or password.");
-
-    const validPassword = await user.validPassword(password)
-    if (!validPassword)
-        return res.status(400).send("Invalid username or password.");
-
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
-
-    res.status(202).json({
-        token: token
-    });
-
-  } catch (error){
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
 });
 
 

@@ -1,0 +1,40 @@
+$inputWidth : 25rem;
+
+.mainDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.inputDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: $inputWidth;
+    *{
+        margin-top: 1rem;
+    }
+}
+
+.titleDiv{
+    font-size: xx-large;
+    margin-bottom: .2rem;
+}
+
+.pageTitleDiv{
+    font-size: x-large;
+}
+
+@media(max-width : $inputWidth){
+
+    .inputDiv{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 75%;
+    }
+}

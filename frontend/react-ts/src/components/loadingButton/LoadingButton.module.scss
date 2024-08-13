@@ -1,0 +1,57 @@
+@import "../../colors.scss";
+
+.button {
+  margin-top: 1rem;
+  position: relative;
+  padding: 8px 16px;
+  background: $ButtonColor;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+
+  &:focus-visible{
+    outline: 3px solid $LoadingButtonFocus;
+  }
+}
+
+
+.button_text {
+  transition: all 0.2s;
+  color: $LoadingButtonFont 
+}
+
+.button_loading {
+  &::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: $LoadingButtonFont ;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+  }
+
+  .button_text {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}

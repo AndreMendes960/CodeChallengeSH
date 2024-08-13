@@ -1,5 +1,3 @@
-
-import './App.css'
 import AppSkeleton from './routes/AppSkeleton'
 
 function App() {

@@ -4,7 +4,7 @@ import AuthContext, { userDataType } from '../middleware/authContext';
 
 import { useContext } from 'react';
 import LoginPage from '../pages/LoginPage';
-import RegisterPage from '../pages/RegisterPage';
+import RegisterPage from '../pages/registerPage/RegisterPage';
 import AdminPage from '../pages/AdminPage';
 import HomePage from '../pages/HomePage';
 
@@ -13,12 +13,12 @@ const AuthenticatedRoute = ({ children, userData } : {children : JSX.Element, us
     return (userData !== null && userData.token !== "") ? children : <Navigate to="/login" />;
 };
 
-const ProtectedRoute = ({ children, userData } : {children : JSX.Element, userData : userDataType | null}) => {
-    return (userData !== null && userData.role === "Admin") ? children : <Navigate to="/404" />;
-};
-
 const UnauthenticatedRoute = ({ children, userData } : {children : JSX.Element, userData : userDataType | null}) => {
     return (userData === null) ? children : <Navigate to="/" />;
+};
+
+const ProtectedRoute = ({ children, userData } : {children : JSX.Element, userData : userDataType | null}) => {
+    return (userData !== null && userData.role === "Admin") ? children : <Navigate to="/404" />;
 };
 
 
