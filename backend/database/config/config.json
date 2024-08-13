@@ -3,7 +3,7 @@
 {
   "development": {
     "username": "avnadmin",
-    "password": "AVNS_KSdQAKcyHX31W6XGeaE",
+    "password": "pwdhere",
     "database": "defaultdb",
     "host": "users-db-code-challenge-sh.l.aivencloud.com",
     "dialect": "postgres",
