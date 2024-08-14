@@ -124,7 +124,7 @@ const BookPage = () => {
                     :
                     book !== null ? <div className={styles.layoutDiv}>
                         <div className={styles.imageDiv}>
-                            <img className={styles.image} src={book.image_url}></img>
+                            <img alt="Book Cover" className={styles.image} src={book.image_url}></img>
 
                             {reservationField}
                         </div>

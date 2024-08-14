@@ -239,7 +239,7 @@ const BookPage = () => {
                             </div>
 
                             <div className={styles.imageDiv}>
-                                <img className={styles.image} src={imageUrl}></img>
+                                <img alt="Book Cover" className={styles.image} src={imageUrl}></img>
                                 <div className={styles.wrapperInputDiv}>
                                     <div className={styles.imageInputDiv}>
                                         <FloatingInput invalid={errors.imageUrl !== undefined} field="image_url_input" 

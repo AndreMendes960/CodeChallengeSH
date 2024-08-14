@@ -14,7 +14,7 @@ const BookCard = ({image, title, author, year, bookId} : Props) => {
     return (
         <a href={"/book/" + bookId} className={styles.cardDiv}>
             <div className={styles.imgDiv}>
-                <img src={image} className={styles.img}></img>
+                <img alt="Book Cover" src={image} className={styles.img}></img>
             </div>
             <div className={styles.detailsDiv}>
                 <p className={styles.titleLabel}>{title}</p>
