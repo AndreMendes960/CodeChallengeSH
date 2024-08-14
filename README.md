@@ -56,6 +56,8 @@ The user can also bulk create book records by importing the CSV clicking Create 
 
 The reservation list can also be acessed via task bar by administrators. These have access to the full list of reservations in the app. These reservations can only be deleted by admins or the owner of the reservation. Also, even though there is a field, book_count, indicating that there might be possible to have more than one reservation, I decided, for the sake of this challenge, to only allow 1 reservation per book, which will make testing this feature quite easier. In case we wanted to use the book_count field, we would need a transaction to make sure book_count gets decremented by one and the new entry in the Reservations table gets created. This is made possible using the sequelize ORM.
 
+For the sake of showing more information to the user, and because these pages are in an administrative area, some responsiveness was sacrificed.
+
 
 This is the ERD of the database:
 
