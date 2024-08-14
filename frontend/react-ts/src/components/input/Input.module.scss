@@ -1,0 +1,39 @@
+@import "../../colors.scss";
+
+.wrapper {
+    background-color: #FFF;
+    border-radius: 2px;
+    box-sizing: border-box; 
+    margin: .5rem;
+    margin-top: 0.7rem;
+    margin-left: 1rem;
+}
+  
+.input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #CCC;
+    color: $bigLabel;
+    font-size: larger;
+    font-weight: 600;
+    height: 50px;
+    padding: 10px 0px;
+    position: relative;
+
+    &:focus {
+        outline: none;    
+    }
+}
+
+input::-webkit-input-placeholder {
+    color: #AAA;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: dodgerblue;
+}
+
+.input:focus+.underline {
+    transform: scale(1);
+}

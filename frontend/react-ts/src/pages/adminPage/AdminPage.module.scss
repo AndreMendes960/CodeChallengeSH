@@ -5,12 +5,24 @@
     
     flex-direction: column; 
     max-width: 1200px;
-    margin: 2rem; //FIX HERE FOR SCROLLBAR
+    margin: 2rem;
 }
 
 .pageTitle{
     font-size: x-large;
     font-weight: 600;
+}
+
+.filterDiv{
+    display: flex;
+    justify-content: center;
+    *{
+        margin: .3rem;
+    }
+}
+
+.createRecordsDiv{
+    margin-left: auto;
 }
 
 .modalDiv{
@@ -20,4 +32,5 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin: 2rem;
 }

@@ -9,7 +9,7 @@ type Props ={
 
 function DragDrop({ setFiles, fileTypes} : Readonly<Props>) {
   return (
-    <FileUploader handleChange={setFiles} name="file" types={fileTypes} />
+    <FileUploader label="Upload or Drop a file. Only one at a time." handleChange={setFiles} name="file" types={fileTypes} />
   );
 }
 

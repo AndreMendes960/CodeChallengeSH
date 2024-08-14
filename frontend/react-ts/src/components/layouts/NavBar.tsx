@@ -1,48 +1,53 @@
-//import {useContext} from "react"
-//import {MdHelp, MdLogout, MdPerson3, MdWifi} from "react-icons/md"
+import {useContext} from "react"
 
-//import AuthContext from "../../middleware/authContext";
-//import SwitchButton from "../components/common/SwitchButton";
+import AuthContext from "../../middleware/authContext";
 
+import { Menubar } from "primereact/menubar";
 import styles from "./NavBar.module.scss"
-//import TransparentButtonDropDown from "../components/common/TransparentDropDown/TransparentButtonDropDown";
-//import DropDownOption from "../components/common/DropDownOption";
-//import TransparentRoundHoverButton from "../components/common/TransparentRoundHoverButton";
+import CustomButton from "../Button";
+import { useNavigate } from "react-router-dom";
+
 
 
 
 const NavBar = () =>{
 
-    //const {userData, logout} = useContext(AuthContext)
+    const {userData, logout} = useContext(AuthContext)
+    const navigate = useNavigate()
 
-    return(
-        <div className={styles.navBar}>
-            <div className={styles.actionsDiv}>
-                {/* <TransparentRoundHoverButton customClassname={{margin : "0", width : "30px", height : "30px", marginRight : "1rem"}} onClick={()=>setIsModalOpen(true)}>
-                    <MdHelp style={{width : "20px", height : "20px"}} ></MdHelp>
-                </TransparentRoundHoverButton>
-                <TransparentButtonDropDown>
-                    <div className={styles.dropDownProfileWrapper}>
-                        <div className={styles.userDataDiv}>
-                            <div className={styles.iconLabelDiv}>
-                                <MdPerson3 className={styles.icon}></MdPerson3>
-                                <p className={styles.usernameLabel}>{userData.name}</p>
-                            </div>  
-                            <p className={styles.userEmailLabel}>{userData.email}</p>
-                        </div>
-                    
-                        {<DropDownOption customClassname={{paddingRight : "0", paddingLeft:"0"}}> 
-                            <div className={styles.iconLabelDiv} onClick={()=>logout()}>
-                                <MdLogout className={styles.icon}></MdLogout>
-                                <p className={styles.optionLabel}>{t("LOG_OUT")} </p>
-                            </div>
-                        </DropDownOption>}
-                    </div>
-                </TransparentButtonDropDown> */}
-                Navbar
-            </div>
+    const start = <p className={styles.titleLabel}>Book Management App</p>;
+    
+    const items = (userData !== null && userData?.role === 'Admin') ? 
+    [
+        {
+            label: 'Home',
+            url: '/'
+        },
+        {
+            label: 'Administration',
+            url: '/admin'
+        }
+    ] : 
+    [
+        {
+            label: 'Home',
+            url: '/'
+        }
+    ];
+
+    const end = (userData!== null && userData.token !== null) ? 
+    <p className={styles.titleLabel}>Hello {userData?.username}</p> 
+    :
+    (
+        <div className="flex align-items-center gap-2">
+            <CustomButton label="Log in" link eventHandler={() => navigate("/login")}></CustomButton>
         </div>
+    )
 
+    return (
+        <div className="card">
+            <Menubar model={items} start={start} end={end}/>
+        </div>
     )
 }
 

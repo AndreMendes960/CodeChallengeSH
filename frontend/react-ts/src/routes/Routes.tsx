@@ -6,7 +6,8 @@ import { useContext } from 'react';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/registerPage/RegisterPage';
 import AdminPage from '../pages/adminPage/AdminPage';
-import HomePage from '../pages/HomePage';
+import HomePage from '../pages/homePage/HomePage';
+import BookPage from '../pages/bookPage/BookPage';
 
 
 const AuthenticatedRoute = ({ children, userData } : {children : JSX.Element, userData : userDataType | null}) => {
@@ -36,6 +37,7 @@ const UseRoutes = () => {
             <Route path="/" element={<AuthenticatedRoute userData={userData}><HomePage></HomePage></AuthenticatedRoute>}/>
 
             <Route path="/admin" element={<ProtectedRoute userData={userData}><AdminPage></AdminPage></ProtectedRoute>}/>
+            <Route path="/book/:id/edit" element={<ProtectedRoute userData={userData}><BookPage></BookPage></ProtectedRoute>} />
         </Routes>
     </BrowserRouter>
 )};

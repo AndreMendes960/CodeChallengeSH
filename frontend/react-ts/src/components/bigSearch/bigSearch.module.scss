@@ -1,0 +1,39 @@
+
+@import "../../colors.scss";
+
+.wrapperDiv{
+    box-shadow: 0 4px 8px 0 $dropShadow , 0 6px 20px 0 $dropShadow;
+    width: 100%;
+    border-radius: 15px;
+    display: flex;
+}
+
+.itemDiv{
+    width: 100%;
+    &:not(:nth-last-child(-n+2)) {
+        border-right: 1px solid $dropShadow;
+    }
+}
+
+.buttonDiv{
+    display: flex;
+    padding: 1rem;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .wrapperDiv{
+        flex-wrap: wrap;
+    }
+    .buttonDiv{
+        width: 100%;
+        height: auto;
+    }
+    .itemDiv{
+        &:not(:nth-last-child(-n+2)) {
+            border-right: 0px;
+        }
+    }
+}

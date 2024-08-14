@@ -1,0 +1,49 @@
+@import "../../colors.scss";
+
+$imageSizeWidth : 200px;
+
+.cardDiv{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.detailsDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align : center;
+}
+
+.titleLabel{
+    color: $bigLabel;
+    font-size: larger;
+    font-weight: 600;
+    margin: 0.4rem;
+}
+
+.yearLabel{
+    color: $secondaryLabel;
+    margin: 0rem;
+}
+
+.authorLabel{
+    color: $secondaryLabel;
+    font-weight: 600;
+    margin: 0rem;
+}
+
+.imgDiv{
+    height: 400px;
+    overflow: hidden;
+}
+
+.img{
+    width: 100%;
+    height: 400px;
+    transition: all .2s ease-in-out;
+    object-fit: cover;
+    &:hover{
+        height: 450px;
+    }
+}

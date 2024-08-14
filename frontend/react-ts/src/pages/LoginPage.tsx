@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import Input from "../components/inputText/Input"
+import Input from "../components/input/Input"
 import Layout from "../components/layouts/Layout"
 import LoadingButton from "../components/loadingButton/LoadingButton"
 import AuthContext from "../middleware/authContext"
