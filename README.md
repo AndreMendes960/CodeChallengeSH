@@ -59,3 +59,16 @@ The reservation list can also be acessed via task bar by administrators. These h
 This is the ERD of the database:
 
 [alt text](https://github.com/AndreMendes960/CodeChallengeSH/blob/main/diagram.jpg?raw=true)
+
+The table Users stores all the information of the users, the table Admins defines which Users are Admins, the table Books stores all the information obtained via CSV, and the table Reservations stores the reservations and links them to the user and the book
+
+Example .env file for the backend
+
+NODE_ENV: 'development'
+DB_HOST: 'DBHOST'
+DB_PASSWORD: 'DBPASSWORD'
+DB_PORT: 5432
+DB_NAME: 'defaultdb'
+DB_USERNAME: 'posttgres'
+DB_DIALECT: 'postgres'
+JWT_SECRET: 'JWTSECRET'
