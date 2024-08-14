@@ -205,4 +205,32 @@ router.put('/:id', authenticateToken, checkAdmin, bookUpdateValidationRules(), a
     }
 })
 
+router.delete('/:id', authenticateToken, checkAdmin, async (req, res) => {
+    try{
+
+        const id = req.params.id;
+        if (id === null) {
+            return res.status(400).send("Invalid book.");
+        }
+
+        const book = await db.Book.destroy({
+            where: {
+                book_id: id,
+            },
+        });
+
+        if(book === 0 ){
+            return res.status(400).send("Invalid book.");
+        }
+        else
+        {
+            res.status(200).json({ message: 'Book deleted successfully'});
+        } 
+
+    } catch (error){
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
 module.exports = router;

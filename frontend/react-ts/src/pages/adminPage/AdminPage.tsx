@@ -94,7 +94,10 @@ const AdminPage = () =>{
                     }
                 });
                 data.rows.map((row : any)=>{
-                    row.edit_url = <CustomButton label="Edit" link eventHandler={() =>  navigate('/book/'+row.book_id + '/edit')}/>
+                    row.actions = <div>
+                        <CustomButton label="Edit" link eventHandler={() =>  navigate('/book/'+row.book_id + '/edit')}/>
+                        <CustomButton label="Delete" link eventHandler={() =>  deleteBook(row.book_id)}/>
+                    </div>
                 })
                 setBooks(data.rows);
                 setPageInfo({
@@ -107,6 +110,21 @@ const AdminPage = () =>{
                 console.error('Failed to fetch books', error);
             }
             setLoading(false);
+        };
+
+        const deleteBook = async (id:number) => {
+            try {
+                await axios.delete(config.api_url + '/api/books/' + id, {
+                    headers: {
+                    'Authorization' : 'Bearer ' + userData?.token
+                    },
+                });
+                setMessage('Book deleted!');
+                setBooks((books : any) => books.filter((book : any) => book.book_id !== id))
+            } catch (error) {
+                setMessage('Failed to delete.');
+                console.error(error);
+            }
         };
 
         fetchBooks();
@@ -139,7 +157,7 @@ const AdminPage = () =>{
                             <Column field="original_title" header="Title" style={{ width: '40%' }}></Column>
                             <Column field="authors" header="Authors" style={{ width: '25%' }}></Column>
                             <Column field="original_publication_year" header="Publication Year" style={{ width: '15%' }}></Column>
-                            <Column field={"edit_url"} header="Actions" style={{ width: '10%' }}></Column>
+                            <Column field="actions" header="Actions" style={{ width: '10%' }}></Column>
                         </DataTable>
                         <Pagination pageInfo={pageInfo} setPageInfo={setPageInfo}></Pagination>
                     </div>
