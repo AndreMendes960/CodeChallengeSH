@@ -60,7 +60,9 @@ This is the ERD of the database:
 
 [alt text](https://github.com/AndreMendes960/CodeChallengeSH/blob/main/diagram.jpg?raw=true)
 
-The table Users stores all the information of the users, the table Admins defines which Users are Admins, the table Books stores all the information obtained via CSV, and the table Reservations stores the reservations and links them to the user and the book
+The table Users stores all the information of the users, the table Admins defines which Users are Admins, the table Books stores all the information obtained via CSV, and the table Reservations stores the reservations and links them to the user and the book.
+
+To create an admin, we must first create an account by registering in the website, and then we need to create a new row in Admins table linking it to the newly created User. Then, next time we log in, we will be granted admin privileges
 
 Example .env file for the backend
 
