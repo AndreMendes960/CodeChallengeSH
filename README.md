@@ -27,7 +27,7 @@ Backend:
 
 3 - run npx sequelize-cli db:migrate in backend/database to run the migrations
 
-4 - after running the migrations, remove any secrets or passwords from config.json
+4 - after running the migrations, remove any secrets or passwords from config.json and move the config.js back to backend/database
 
 5 - access backend/
 
