@@ -1,5 +1,4 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const db = require('../database/models')
 const router = express.Router();
 const multer = require ("multer")
@@ -7,6 +6,8 @@ const csv = require('csv-parser');
 const fs = require('fs');
 const { body, validationResult } = require('express-validator');
 const { Op } = require('sequelize');
+const {sendEmail} = require('../lib/mailer')
+const {authenticateToken, checkAdmin} = require('../middleware/permissions')
 
 
 const bulkValidationRules = () => {
@@ -19,36 +20,6 @@ const bulkValidationRules = () => {
                 return true;
             }),
     ];
-};
-
-const authenticateToken = (req, res, next) => {
-    const token = req.headers['authorization'];
-
-    if (!token) return res.status(401).json({ error: 'No token provided.' });
-
-    jwt.verify(token.split(' ')[1], process.env.JWT_SECRET, (err, user) => {
-        if (err) return res.status(403).json({ error: 'Invalid token.' });
-        req.user = user;
-        next();
-    });
-};
-
-const checkAdmin = async (req, res, next) => {
-    try {
-        const admin = await db.Admin.findOne({
-            where: {
-                userId: req.user.userId
-            }
-        });
-
-        if (!admin) {
-            return res.status(403).json({ error: 'No admin privileges.' });
-        }
-
-        next();
-    } catch (error) {
-        res.status(500).json({ error: 'Internal server error.' });
-    }
 };
 
 const bookUpdateValidationRules = () =>{
@@ -113,6 +84,7 @@ router.post("/create/bulk", authenticateToken, checkAdmin, upload.single('file')
                 await db.Book.bulkCreate(books);
   
                 fs.unlinkSync(filePath);
+                await sendEmail()
   
                 res.status(201).send('Books successfully uploaded and saved.');
             } catch (err) {
@@ -128,7 +100,7 @@ router.post("/create/bulk", authenticateToken, checkAdmin, upload.single('file')
     }
 });
 
-router.get("/", authenticateToken, async(req, res) => {
+router.get("/", async(req, res) => {
     try {
         const { title, authors, year, rating, page = 0, limit = 10 } = req.query;
 

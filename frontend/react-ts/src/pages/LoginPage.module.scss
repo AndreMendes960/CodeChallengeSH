@@ -14,11 +14,12 @@ $inputWidth : 25rem;
     align-items: center;
     justify-content: center;
     width: $inputWidth;
-    *{
-        margin-top: 1rem;
-    }
 }
 
 .titleDiv{
     font-size: xx-large;
+}
+
+.inputMarginDiv{
+    margin-top: 2rem;
 }

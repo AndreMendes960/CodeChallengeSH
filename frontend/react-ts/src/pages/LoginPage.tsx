@@ -1,15 +1,14 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import Input from "../components/input/Input"
 import Layout from "../components/layouts/Layout"
 import LoadingButton from "../components/loadingButton/LoadingButton"
 import AuthContext from "../middleware/authContext"
-
+import FloatingInput from "../components/input/FloatingInput"
 import config from "../config"
 
-
 import styles from "./LoginPage.module.scss"
+
 
 const LoginPage = () =>{
 
@@ -42,8 +41,13 @@ const LoginPage = () =>{
                 <p className={styles.titleDiv}>{config.app_name}</p>
                 <form onSubmit={onSubmit}>
                     <div className={styles.inputDiv}>
-                        <Input label="Email" defaultValue={email} onChangeFunction={setEmail}></Input>
-                        <Input type="password" label="Password" defaultValue={password} onChangeFunction={setPassword}></Input>
+                        <div className={styles.inputMarginDiv}>
+                            <FloatingInput field="email" label="Email" defaultValue={email} onChangeFunction={setEmail}></FloatingInput>
+                        </div>
+                        <div className={styles.inputMarginDiv}>
+                            <FloatingInput field="password" type="password" label="Password" defaultValue={password} onChangeFunction={setPassword}></FloatingInput>
+                        </div>
+                        
                         <LoadingButton type="submit" label={"Login"} loading={loading}></LoadingButton> 
                     </div>
                 </form>

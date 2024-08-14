@@ -14,9 +14,9 @@ const BigSearch = ({searchArray, button} : Props) => {
 
     return (
         <div className={styles.wrapperDiv}>
-            {searchArray.map((param) => {
+            {searchArray.map((param, index) => {
                 return(
-                    <div className={styles.itemDiv}>
+                    <div className={styles.itemDiv} key={"search" + index}>
                         <Input label={param.label} defaultValue={param.value} onChangeFunction={param.setState}></Input>
                     </div>
                 )

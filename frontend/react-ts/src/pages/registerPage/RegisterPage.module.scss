@@ -14,9 +14,10 @@ $inputWidth : 25rem;
     align-items: center;
     justify-content: center;
     width: $inputWidth;
-    *{
-        margin-top: 1rem;
-    }
+}
+
+.inputMarginDiv{
+    margin-top: 2rem;
 }
 
 .titleDiv{

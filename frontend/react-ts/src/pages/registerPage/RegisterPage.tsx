@@ -1,14 +1,13 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import Input from "../../components/input/Input"
 import Layout from "../../components/layouts/Layout"
 import LoadingButton from "../../components/loadingButton/LoadingButton"
 import AuthContext from "../../middleware/authContext"
-
 import config from "../../config"
 
 import styles from "./RegisterPage.module.scss"
+import FloatingInput from "../../components/input/FloatingInput"
 
 const RegisterPage = () =>{
 
@@ -44,9 +43,15 @@ const RegisterPage = () =>{
                 <p className={styles.pageTitleDiv}>Create an account</p>
                 <form onSubmit={onSubmit}>
                     <div className={styles.inputDiv}>
-                        <Input label="Email" defaultValue={email} onChangeFunction={setEmail}></Input>
-                        <Input label="Username" defaultValue={username} onChangeFunction={setUsername}></Input>
-                        <Input type="password" label="Password" defaultValue={password} onChangeFunction={setPassword}></Input>
+                        <div className={styles.inputMarginDiv}>
+                            <FloatingInput field="email" label="Email" defaultValue={email} onChangeFunction={setEmail}></FloatingInput>
+                        </div>
+                        <div className={styles.inputMarginDiv}>
+                            <FloatingInput field="username" label="Username" defaultValue={username} onChangeFunction={setUsername}></FloatingInput>
+                        </div>
+                        <div className={styles.inputMarginDiv}>
+                            <FloatingInput field="password" type="password" label="Password" defaultValue={password} onChangeFunction={setPassword}></FloatingInput>
+                        </div>
                         <LoadingButton type="submit" label={"Login"} loading={loading}></LoadingButton> 
                     </div>
                 </form>

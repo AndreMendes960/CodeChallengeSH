@@ -9,15 +9,16 @@ type Props = {
     onChangeFunction : Dispatch<SetStateAction<any>>,
     field : string,
     invalid? : boolean
+    type? : string
 }
 
-const FloatingInput = ({label, defaultValue, onChangeFunction, field, invalid = false} : Props) => {
+const FloatingInput = ({label, defaultValue, onChangeFunction, field, invalid = false, type = "text"} : Props) => {
     return(
         <FloatLabel>
             {typeof defaultValue === 'number' ? 
                 <InputNumber invalid={invalid} useGrouping={false} value={defaultValue || 0} onValueChange={(e) => onChangeFunction(e.value)} /> 
                 :
-                <InputText invalid={invalid} value={defaultValue} onChange={(e) => onChangeFunction(e.target.value)} />}
+                <InputText invalid={invalid} value={defaultValue} onChange={(e) => onChangeFunction(e.target.value)} type={type}/>}
             <label htmlFor={field}>{label}</label>
         </FloatLabel>
     )

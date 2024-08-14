@@ -53,6 +53,8 @@ const BookPage = () => {
 
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
+    const [message, setMessage] = useState("")
+
     useEffect(() => {
         const fetchBook = async () => {
             setLoading(true);
@@ -118,11 +120,13 @@ const BookPage = () => {
                     "Authorization": `Bearer ${userData?.token}`,
                 }
             }).then((response : AxiosResponse) => {
-                setLoadingButton(false)});
+                setLoadingButton(false)
                 console.log('Book updated successfully', response)
-            ;
+                setMessage('Book updated successfully')
+            })
         } catch (error) {
             console.error('Error updating book', error);
+            setMessage('Error updating book')
         }
     })
 
@@ -252,6 +256,7 @@ const BookPage = () => {
                         </div> 
 
                         <LoadingButton type="submit" label="Submit" loading={loadingButton}></LoadingButton>
+                        {message !== "" && <p>{message}</p>}
                     </form>
 
                 }

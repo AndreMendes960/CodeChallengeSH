@@ -38,7 +38,7 @@ const NavBar = () =>{
     const end = (userData!== null && userData.token !== null) ? 
         <div className={styles.actionsDiv}>
             <p className={styles.titleLabel}>Hello {userData?.username}</p> 
-            <CustomButton label="Log out" eventHandler={() => logout()}></CustomButton>
+            <CustomButton label="Log out" eventHandler={() => {logout(); navigate("/")}}></CustomButton>
         </div>
     :
     (

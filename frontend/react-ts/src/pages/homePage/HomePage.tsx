@@ -13,6 +13,7 @@ import styles from "./HomePage.module.scss"
 import CustomButton from "../../components/Button";
 import BookCard from "../../components/bookCard/BookCard";
 import Pagination from "../../components/pagination";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 
 
@@ -80,6 +81,8 @@ const HomePage = () =>{
 
     return(
         <MainLayout>
+            {loading ? <div className={styles.loadingDiv}><ProgressSpinner></ProgressSpinner></div> 
+            :
             <div className={styles.pageDiv}>
                 
                 <p className={styles.pageTitle}>Book Records Management</p>
@@ -94,15 +97,15 @@ const HomePage = () =>{
                 </div>
 
                 <div className={styles.cardDiv}>
-                    {books.map((book : any) => {
+                    {books.map((book : any, index) => {
                         return (<BookCard author={book.authors} title={book.original_title} bookId={book.book_id} 
-                            year={book.original_publication_year} image={book.image_url}></BookCard>)
+                            year={book.original_publication_year} image={book.image_url} key={"book" + index}></BookCard>)
                     })}
                 </div> 
 
                 <Pagination pageInfo={pageInfo} setPageInfo={setPageInfo}></Pagination>
                 
-            </div>
+            </div>}
         </MainLayout>
     )
 }

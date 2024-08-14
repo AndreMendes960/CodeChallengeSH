@@ -7,7 +7,6 @@ module.exports = (sequelize) => {
       return bcrypt.compare(password, this.password);
     }
   }
-
   User.init({
     id: {
       type: DataTypes.INTEGER,

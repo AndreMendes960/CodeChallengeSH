@@ -13,13 +13,13 @@ import MainLayout from "../../components/layouts/MainLayout"
 import DragDrop from "../../components/dragDrop/dragDrop"
 import Backdrop from "../../components/modal/Backdrop"
 import Modal from "../../components/modal/Modal"
-import Input from "../../components/input/Input"
 
 import config from "../../config"
 
 import styles from "./AdminPage.module.scss"
 import Pagination, { PageInfo } from "../../components/pagination";
 import CustomButton from "../../components/Button";
+import FloatingInput from "../../components/input/FloatingInput";
 
 
 
@@ -35,32 +35,6 @@ const AdminPage = () =>{
     const [isModalOpen, setIsModalOpen] = useState(false)
 
 
-    // Handle form submission
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (!files) {
-            setMessage('Please select a file first.');
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('file', files);
-
-        try {
-            const response = await axios.post(config.api_url + '/api/books/create/bulk', formData, {
-                headers: {
-                'Content-Type': 'multipart/form-data',
-                },
-            });
-            setMessage('File uploaded successfully!');
-            console.log(response.data);
-        } catch (error) {
-            setMessage('Failed to upload file.');
-            console.error(error);
-        }
-    };
-
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(false);
     const [pageInfo, setPageInfo] = useState<PageInfo>({
@@ -73,6 +47,36 @@ const AdminPage = () =>{
         title: '',
         authors: '',
         year: ''});
+
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!files) {
+            setMessage('Please select a file first.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', files);
+
+        try {
+            await axios.post(config.api_url + '/api/books/create/bulk', formData, {
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization' : 'Bearer ' + userData?.token
+                },
+            });
+            setMessage('File uploaded successfully!');
+            setFilters({
+                title: '',
+                authors: '',
+                year: ''})
+        } catch (error) {
+            setMessage('Failed to upload file.');
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -106,9 +110,8 @@ const AdminPage = () =>{
         };
 
         fetchBooks();
-    }, [filters, pageInfo.page, pageInfo.limit, userData?.token]);
+    }, [filters, pageInfo.page, pageInfo.limit, userData?.token, navigate]);
 
-    console.log(filters)
 
     return(
         <MainLayout>
@@ -116,10 +119,15 @@ const AdminPage = () =>{
                 
                 <p className={styles.pageTitle}>Book Records Management</p>
                 <div className={styles.filterDiv}>
-                    <Input label="Title" defaultValue={filters.title} onChangeFunction={(newValue : string) => setFilters({...filters, title:newValue})}/>
-                    <Input label="Year" defaultValue={filters.year} onChangeFunction={(newValue : string) => setFilters({...filters, year:newValue})}/>
-                    <Input label="Author" defaultValue={filters.authors} onChangeFunction={(newValue : string) => setFilters({...filters, authors:newValue})}/>
-
+                    <div className={styles.inputDiv}>
+                        <FloatingInput field="title" label="Title" defaultValue={filters.title} onChangeFunction={(newValue : string) => setFilters({...filters, title:newValue})}/>
+                    </div>
+                    <div className={styles.inputDiv}>
+                        <FloatingInput field="year" label="Year" defaultValue={filters.year} onChangeFunction={(newValue : string) => setFilters({...filters, year:newValue})}/>
+                    </div>
+                    <div className={styles.inputDiv}>
+                        <FloatingInput field="author" label="Author" defaultValue={filters.authors} onChangeFunction={(newValue : string) => setFilters({...filters, authors:newValue})}/>
+                    </div>
                     <div className={styles.createRecordsDiv}>
                         <CustomButton label="Create Records" eventHandler={() => setIsModalOpen(true)}></CustomButton>
                     </div>
