@@ -90,7 +90,7 @@ const AdminPage = () =>{
                     }
                 });
                 data.rows.map((row : any)=>{
-                    row.edit_url = <CustomButton label="Edit" link eventHandler={() =>  window.open('/book/'+row.book_id + '/edit', '_blank')}/>
+                    row.edit_url = <CustomButton label="Edit" link eventHandler={() =>  navigate('/book/'+row.book_id + '/edit')}/>
                 })
                 setBooks(data.rows);
                 setPageInfo({
@@ -147,7 +147,7 @@ const AdminPage = () =>{
                             {message && <p>{message}</p>}
                         </div>
                     </Modal>}
-                {isModalOpen && <Backdrop onClick={()=>{setIsModalOpen(false)}}></Backdrop>}
+                {isModalOpen && <Backdrop onClick={()=>{setIsModalOpen(false); setMessage(""); setFiles(null)}}></Backdrop>}
             </div>
         </MainLayout>
     )

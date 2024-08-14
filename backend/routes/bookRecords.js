@@ -33,9 +33,44 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-const upload = multer({ dest: 'uploads/' }); // Directory to store uploaded files
+const checkAdmin = async (req, res, next) => {
+    try {
+        const admin = await db.Admin.findOne({
+            where: {
+                userId: req.user.userId
+            }
+        });
 
-router.post("/create/bulk", upload.single('file'), bulkValidationRules(), async (req, res) => {
+        if (!admin) {
+            return res.status(403).json({ error: 'No admin privileges.' });
+        }
+
+        next();
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+};
+
+const bookUpdateValidationRules = () =>{
+    return[
+        body('goodreads_book_id').isInt().withMessage('Goodreads Book ID must be an integer.'),
+        body('best_book_id').isInt().withMessage('Best Book ID must be an integer.'),
+        body('work_id').isInt().withMessage('Work ID must be an integer.'),
+        body('isbn').notEmpty().withMessage('ISBN cannot be empty.'),
+        body('isbn13').notEmpty().withMessage('ISBN13 cannot be empty.'),
+        body('authors').notEmpty().withMessage('Authors cannot be empty.'),
+        body('original_publication_year').isInt({ min: 0, max: 2024 }).withMessage('Original Publication Year must be an integer beween 0 and 2024.'),
+        body('original_title').notEmpty().withMessage('Original Title cannot be empty.'),
+        body('title').notEmpty().withMessage('Title cannot be empty.'),
+        body('language_code').notEmpty().withMessage('Language Code cannot be empty.'),
+        body('average_rating').isFloat({ min: 0, max: 5 }).withMessage('Average Rating must be a float between 0 and 5.'),
+        body('image_url').notEmpty().withMessage('Image URL cannot be empty.'),
+      ]
+}
+
+const upload = multer({ dest: 'uploads/' });
+
+router.post("/create/bulk", authenticateToken, checkAdmin, upload.single('file'), bulkValidationRules(), async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -81,16 +116,17 @@ router.post("/create/bulk", upload.single('file'), bulkValidationRules(), async 
   
                 res.status(201).send('Books successfully uploaded and saved.');
             } catch (err) {
+                fs.unlinkSync(filePath);
                 console.error('Error saving books: ', err);
                 res.status(500).send('Error saving books.');
             }
         });
     } catch (err) {
+        fs.unlinkSync(filePath);
         console.error('Error parsing CSV: ', err);
         res.status(500).send('Error processing the CSV file.');
     }
 });
-
 
 router.get("/", authenticateToken, async(req, res) => {
     try {
@@ -134,6 +170,66 @@ router.get("/", authenticateToken, async(req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+router.get('/:id', async (req, res) => {
+    try{
+        const id = req.params.id;
+        if (id === null) {
+            return res.status(400).send("Invalid book.");
+        }
+
+        const book = await db.Book.findOne({
+            where: {
+                book_id: id,
+            },
+        });
+
+        if (!book) 
+            return res.status(400).send("Invalid book.");
+
+        res.status(200).json(book);
+
+    } catch (error){
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
+router.put('/:id', authenticateToken, checkAdmin, bookUpdateValidationRules(), async (req, res) => {
+    try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const id = req.params.id;
+        if (id === null) {
+            return res.status(400).send("Invalid book.");
+        }
+
+        const book = await db.Book.findOne({
+            where: {
+                book_id: id,
+            },
+        });
+
+        if(!book){
+            return res.status(400).send("Invalid book.");
+        }
+
+        const { goodreads_book_id, best_book_id, work_id, isbn, isbn13, authors, original_publication_year, original_title, title,
+            language_code, average_rating, image_url, } = req.body;
+    
+        await book.update({ goodreads_book_id, best_book_id, work_id, isbn, isbn13, authors, original_publication_year,
+            original_title, title, language_code, average_rating, image_url });
+    
+        res.status(200).json({ message: 'Book updated successfully', book });
+
+    } catch (error){
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
     }
 })
 

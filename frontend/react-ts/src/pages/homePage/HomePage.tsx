@@ -1,15 +1,10 @@
 import { useContext, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-
-import { Button } from 'primereact/button';
 
 
 import axios from "axios"
 
 import AuthContext from "../../middleware/authContext"
 import MainLayout from "../../components/layouts/MainLayout"
-import Input from "../../components/input/Input"
-import NumberInput from "../../components/input/NumberInput";
 import BigSearch from "../../components/bigSearch/bigSearch";
 
 import config from "../../config"
@@ -22,8 +17,6 @@ import Pagination from "../../components/pagination";
 
 
 const HomePage = () =>{
-
-    const navigate = useNavigate()
 
     const {userData} = useContext(AuthContext)
 
@@ -102,7 +95,7 @@ const HomePage = () =>{
 
                 <div className={styles.cardDiv}>
                     {books.map((book : any) => {
-                        return (<BookCard author={book.authors} title={book.original_title} 
+                        return (<BookCard author={book.authors} title={book.original_title} bookId={book.book_id} 
                             year={book.original_publication_year} image={book.image_url}></BookCard>)
                     })}
                 </div> 

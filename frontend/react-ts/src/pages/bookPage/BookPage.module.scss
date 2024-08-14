@@ -1,0 +1,68 @@
+@import "../../colors.scss";
+
+.layoutDiv{
+    margin-top: 4rem;
+    width: 100%;
+    max-width: 1500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.imageDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.image{
+    height: 100%;
+}
+
+.standardDiv{
+    display: flex;
+    flex-direction: column;
+}
+
+.loadingDiv{
+    height: 130px;
+    margin-top: 4rem;
+}
+
+.title{
+    font-size: xx-large;
+    font-weight: 600;
+    color: $bigLabel;
+    margin-top: 0;
+}
+
+.rowDiv{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-direction: row;
+    max-width: 500px;
+    margin-bottom: 1rem;
+}
+
+.propertyLabel{
+    font-size: large;
+    font-weight: 600;
+    color: $secondaryLabel;
+    &.value{
+        color: $bigLabel;
+    }
+}
+
+@media (max-width: 800px) {
+    .layoutDiv{
+        grid-template-columns: 1fr;
+    }
+
+    .standardDiv{
+        align-items: center;
+    }
+
+    .image{
+        height: 300px;
+    }
+}

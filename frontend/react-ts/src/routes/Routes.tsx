@@ -7,12 +7,9 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/registerPage/RegisterPage';
 import AdminPage from '../pages/adminPage/AdminPage';
 import HomePage from '../pages/homePage/HomePage';
-import BookPage from '../pages/bookPage/BookPage';
+import BookPage from '../pages/bookPage/BookPage'
+import EditBookPage from '../pages/bookPage/EditBookPage';
 
-
-const AuthenticatedRoute = ({ children, userData } : {children : JSX.Element, userData : userDataType | null}) => {
-    return (userData !== null && userData.token !== "") ? children : <Navigate to="/login" />;
-};
 
 const UnauthenticatedRoute = ({ children, userData } : {children : JSX.Element, userData : userDataType | null}) => {
     return (userData === null) ? children : <Navigate to="/" />;
@@ -34,10 +31,12 @@ const UseRoutes = () => {
             <Route path="/login" element={<UnauthenticatedRoute userData={userData}><LoginPage></LoginPage></UnauthenticatedRoute>}/>
             <Route path="/register" element={<UnauthenticatedRoute userData={userData}><RegisterPage></RegisterPage></UnauthenticatedRoute>}/>
 
-            <Route path="/" element={<AuthenticatedRoute userData={userData}><HomePage></HomePage></AuthenticatedRoute>}/>
+            <Route path="/" element={<HomePage></HomePage>}/>
 
             <Route path="/admin" element={<ProtectedRoute userData={userData}><AdminPage></AdminPage></ProtectedRoute>}/>
-            <Route path="/book/:id/edit" element={<ProtectedRoute userData={userData}><BookPage></BookPage></ProtectedRoute>} />
+            <Route path="/book/:id" element={<BookPage></BookPage>} />
+
+            <Route path="/book/:id/edit" element={<ProtectedRoute userData={userData}><EditBookPage></EditBookPage></ProtectedRoute>} />
         </Routes>
     </BrowserRouter>
 )};

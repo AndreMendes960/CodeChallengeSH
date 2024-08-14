@@ -36,12 +36,13 @@ const NavBar = () =>{
     ];
 
     const end = (userData!== null && userData.token !== null) ? 
-    <p className={styles.titleLabel}>Hello {userData?.username}</p> 
+        <div className={styles.actionsDiv}>
+            <p className={styles.titleLabel}>Hello {userData?.username}</p> 
+            <CustomButton label="Log out" eventHandler={() => logout()}></CustomButton>
+        </div>
     :
     (
-        <div className="flex align-items-center gap-2">
-            <CustomButton label="Log in" link eventHandler={() => navigate("/login")}></CustomButton>
-        </div>
+        <CustomButton label="Log in" link eventHandler={() => navigate("/login")}></CustomButton>
     )
 
     return (

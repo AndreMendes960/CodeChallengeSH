@@ -5,13 +5,14 @@ type Props = {
     image : string,
     title : string,
     author : string,
-    year : number
+    year : number,
+    bookId : number
 }
 
-const BookCard = ({image, title, author, year} : Props) => {
+const BookCard = ({image, title, author, year, bookId} : Props) => {
 
     return (
-        <a href="https://google.com" className={styles.cardDiv}>
+        <a href={"/book/" + bookId} className={styles.cardDiv}>
             <div className={styles.imgDiv}>
                 <img src={image} className={styles.img}></img>
             </div>
