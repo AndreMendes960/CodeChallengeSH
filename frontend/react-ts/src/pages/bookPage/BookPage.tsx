@@ -105,7 +105,7 @@ const BookPage = () => {
         }
         else if(userData !== null && book.reservations!.userId !== userData.id)
         {
-            reservationField = <div>Someone else made a reservation on this book!</div>
+            reservationField = <div className={styles.standardDiv}>Someone else made a reservation on this book!</div>
         }
         else if(userData !== null && book.reservations!.userId === userData.id)
         {

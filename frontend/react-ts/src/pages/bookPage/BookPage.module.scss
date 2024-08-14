@@ -3,9 +3,10 @@
 .layoutDiv{
     margin-top: 4rem;
     width: 100%;
-    max-width: 1500px;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .imageDiv{
@@ -13,16 +14,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
 }
 
 .image{
-    height: 100%;
+    width: 100%;
 }
 
 .standardDiv{
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
 }
 
 .loadingDiv{
@@ -69,6 +70,6 @@
     }
 
     .image{
-        height: 300px;
+        max-width: 400px;
     }
 }
