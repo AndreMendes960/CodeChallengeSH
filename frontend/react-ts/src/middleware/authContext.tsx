@@ -5,7 +5,8 @@ import config from '../config'
 export type userDataType = {
   token : string,
   role : "Admin" | "User",
-  username : string  
+  username : string,
+  id : number
 }
 
 type contextDataType = {

@@ -9,6 +9,7 @@ import AdminPage from '../pages/adminPage/AdminPage';
 import HomePage from '../pages/homePage/HomePage';
 import BookPage from '../pages/bookPage/BookPage'
 import EditBookPage from '../pages/bookPage/EditBookPage';
+import ReservationsList from '../pages/reservationsPage/ReservationsList';
 
 
 const UnauthenticatedRoute = ({ children, userData } : {children : JSX.Element, userData : userDataType | null}) => {
@@ -37,6 +38,7 @@ const UseRoutes = () => {
             <Route path="/book/:id" element={<BookPage></BookPage>} />
 
             <Route path="/book/:id/edit" element={<ProtectedRoute userData={userData}><EditBookPage></EditBookPage></ProtectedRoute>} />
+            <Route path="/admin/reservations" element={<ProtectedRoute userData={userData}><ReservationsList></ReservationsList></ProtectedRoute>} />
         </Routes>
     </BrowserRouter>
 )};

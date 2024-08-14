@@ -59,7 +59,8 @@ router.post("/login", LoginValidationRules(), async (req, res) => {
         res.status(200).json({
             token : token,
             role : !admin ? "User" : "Admin",
-            username : user.username
+            username : user.username,
+            id : user.id
         });
 
     } catch (error){

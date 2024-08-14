@@ -10,6 +10,7 @@
 
 .imageDiv{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -51,6 +52,11 @@
     &.value{
         color: $bigLabel;
     }
+}
+
+.errorMessage{
+    color: $errorColor;
+    margin-bottom: 0rem;
 }
 
 @media (max-width: 800px) {

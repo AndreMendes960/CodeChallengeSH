@@ -2,6 +2,7 @@
 const express = require("express");
 const authRoutes = require("./routes/authentication");
 const bookRoutes = require("./routes/bookRecords")
+const reservationRoutes = require("./routes/reservation")
 const cors = require("cors"); 
 require("dotenv").config();
 const db = require('./database/models/index');
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
+app.use("/api/reservations", reservationRoutes);
 
 db.sequelize.authenticate().then(() => {
   console.log('Connected to the database');

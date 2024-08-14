@@ -97,7 +97,6 @@ const BookPage = () => {
 
             if(!validateForm())
             {
-                console.log("Form validated unsuccessfully");
                 setLoadingButton(false)
                 return
             }
@@ -119,9 +118,8 @@ const BookPage = () => {
                 headers: {
                     "Authorization": `Bearer ${userData?.token}`,
                 }
-            }).then((response : AxiosResponse) => {
+            }).then(() => {
                 setLoadingButton(false)
-                console.log('Book updated successfully', response)
                 setMessage('Book updated successfully')
             })
         } catch (error) {

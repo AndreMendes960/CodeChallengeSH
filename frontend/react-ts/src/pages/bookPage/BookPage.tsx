@@ -21,7 +21,8 @@ type Book = {
     language_code : string
     original_publication_year : number
     original_title : string,
-    work_id : number
+    work_id : number,
+    reservations : {id : number, userId : number} | null
 }
 
 
@@ -32,6 +33,8 @@ const BookPage = () => {
     const [loading, setLoading] = useState(true)
     const [book, setBook] = useState<Book | null>(null)
     const navigate = useNavigate()
+
+    const [errorMessage, setErrorMessage] = useState("")
 
     useEffect(() => {
         const fetchBook = async () => {
@@ -54,6 +57,66 @@ const BookPage = () => {
     }, [id, userData?.token, navigate]);
 
 
+
+    const makeReservation = async () => {
+        setErrorMessage("")
+        try {
+            await axios.post(config.api_url + '/api/reservations' ,{
+                bookId : id
+            },{
+                headers: {
+                    "Authorization" : "Bearer " + userData?.token,
+                }
+            }).then((data) => {
+                setBook({...book!, reservations : data.data.res})
+            })
+        } catch {
+            setErrorMessage("Error while making reservation")
+        }
+    }
+
+    const deleteReservation = async () => {
+        setErrorMessage("")
+        try {
+            await axios.delete(config.api_url + '/api/reservations/' + book!.reservations!.id ,{
+                headers: {
+                    "Authorization" : "Bearer " + userData?.token,
+                }
+            }).then(() => {
+                setBook({...book!, reservations : null})
+            })
+        } catch {
+            setErrorMessage("Error while deleting reservation")
+        }
+    }
+
+
+    let reservationField = <div><a href="/login">Login</a> or<a href="/register">Register</a> to make a reservation</div>
+    
+    if(book !== null)
+    {   
+        if(userData !== null && book.reservations === null)
+        {
+            reservationField = <div className={styles.standardDiv}> 
+                <CustomButton label="Make Reservation" eventHandler={()=>(makeReservation())} ></CustomButton>
+                {errorMessage !== "" && <p className={styles.errorMessage}>{errorMessage}</p>}
+            </div>
+        
+        }
+        else if(userData !== null && book.reservations!.userId !== userData.id)
+        {
+            reservationField = <div>Someone else made a reservation on this book!</div>
+        }
+        else if(userData !== null && book.reservations!.userId === userData.id)
+        {
+            reservationField = <div className={styles.standardDiv}> 
+                You have a reservation!
+                <CustomButton label="Remove Reservation" eventHandler={()=>deleteReservation()} ></CustomButton>
+                {errorMessage !== "" && <p className={styles.errorMessage}>{errorMessage}</p>}
+            </div>  
+        }
+    }
+
     return (
         <div>
             <MainLayout>
@@ -62,6 +125,8 @@ const BookPage = () => {
                     book !== null ? <div className={styles.layoutDiv}>
                         <div className={styles.imageDiv}>
                             <img className={styles.image} src={book.image_url}></img>
+
+                            {reservationField}
                         </div>
                         <div className={styles.standardDiv}>
                             <p className={styles.title}>{book.original_title}</p>

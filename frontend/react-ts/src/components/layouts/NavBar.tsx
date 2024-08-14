@@ -26,6 +26,10 @@ const NavBar = () =>{
         {
             label: 'Administration',
             url: '/admin'
+        },
+        {
+            label: 'Reservations',
+            url: '/admin/reservations'
         }
     ] : 
     [

@@ -86,11 +86,10 @@ router.post("/create/bulk", authenticateToken, checkAdmin, upload.single('file')
                 fs.unlinkSync(filePath);
                 await sendEmail()
   
-                res.status(201).send('Books successfully uploaded and saved.');
+                res.status(201).send({message : 'Books successfully uploaded and saved.'});
             } catch (err) {
                 fs.unlinkSync(filePath);
-                console.error('Error saving books: ', err);
-                res.status(500).send('Error saving books.');
+                res.status(500).send({error : 'Error saving books.'});
             }
         });
     } catch (err) {
@@ -149,17 +148,24 @@ router.get('/:id', async (req, res) => {
     try{
         const id = req.params.id;
         if (id === null) {
-            return res.status(400).send("Invalid book.");
+            return res.status(400).send({error : "Invalid book."});
         }
 
         const book = await db.Book.findOne({
             where: {
                 book_id: id,
             },
+            include: [
+                {
+                    model: db.Reservation,
+                    attributes: ['id', 'userId'],
+                    as: 'reservations'
+                }
+            ],
         });
 
         if (!book) 
-            return res.status(400).send("Invalid book.");
+            return res.status(400).send({error : "Invalid book."});
 
         res.status(200).json(book);
 

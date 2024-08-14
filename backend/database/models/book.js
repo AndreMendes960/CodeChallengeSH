@@ -111,5 +111,9 @@ module.exports = (sequelize) => {
     tableName: 'Books',
   });
 
+  Book.associate = (models) => {
+    Book.hasOne(models.Reservation, { foreignKey: 'bookId', as: 'reservations' });
+  };
+
   return Book;
 };
