@@ -3,13 +3,14 @@
 This project was developed for the Sword Health Code Challenge.
 
 
-
 This application was built using React with Typescript and Node.js with Express.js and sequelize for the ORM. The database used during development was PostgreSQL, but in theory the ORM should support every dialect.
 
 Some components where built using Prime React in order to save some time during development, but also deliver a rich UI, while sacrificing some customization.
 
 Before local installation, it is important to have Node.js installed, The version was 20.16.0, previous versions might not work
+
 Steps for a local installation:
+
 Frontend:
 
 1 - Access the frontend directory frontend/react-ts
@@ -67,10 +68,17 @@ To create an admin, we must first create an account by registering in the websit
 Example .env file for the backend
 
 NODE_ENV: 'development'
+
 DB_HOST: 'DBHOST'
+
 DB_PASSWORD: 'DBPASSWORD'
+
 DB_PORT: 5432
+
 DB_NAME: 'defaultdb'
+
 DB_USERNAME: 'posttgres'
+
 DB_DIALECT: 'postgres'
+
 JWT_SECRET: 'JWTSECRET'
